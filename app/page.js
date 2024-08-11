@@ -1,95 +1,127 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client';
+import { Box, Button, Typography, Card, CardContent, Grid } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import Spline from '@splinetool/react-spline/next';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { motion } from 'framer-motion';
 
-export default function Home() {
+// Custom theme for Comic Sans font
+const theme = createTheme({
+  typography: {
+    fontFamily: '"Comic Sans MS", cursive, sans-serif',
+    h1: {
+      fontSize: '3.5rem',
+      fontWeight: 700,
+      color: '#ffffff',
+      textShadow: '4px 4px 8px rgba(0,0,0,0.4)',
+    },
+    h5: {
+      fontSize: '1.5rem',
+      color: '#E0E0E0',
+      textShadow: '2px 2px 6px rgba(0,0,0,0.3)',
+    },
+  },
+  palette: {
+    primary: {
+      main: '#FF6F61',
+    },
+    secondary: {
+      main: '#FF9A8B',
+    },
+  },
+});
+
+export default function LandingPage() {
+  const router = useRouter();
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <ThemeProvider theme={theme}>
+      <Box 
+        sx={{ 
+          height: '100vh', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          background: 'linear-gradient(135deg, #6DD5FA 0%, #2980B9 100%)', 
+          overflow: 'hidden'
+        }}
+      >
+        <Grid container spacing={4} alignItems="center" justifyContent="center">
+          <Grid item xs={12} md={5}>
+            <motion.div
+              initial={{ x: '-100vw', opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ type: 'spring', stiffness: 50, delay: 0.2 }}
+            >
+              <Card 
+                sx={{ 
+                  padding: 4, 
+                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3)', 
+                  backgroundColor: 'rgba(255, 255, 255, 0.15)', 
+                  borderRadius: '20px',
+                  backdropFilter: 'blur(15px)'
+                }}
+              >
+                <CardContent>
+                  <Typography variant="h1" align="center" gutterBottom>
+                    AI Customer Support
+                  </Typography>
+                  <Typography variant="h5" align="center" gutterBottom>
+                    Welcome to Our App
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    sx={{ 
+                      mt: 3, 
+                      mb: 2, 
+                      backgroundColor: '#ffffff', 
+                      color: '#FF6F61',
+                      '&:hover': {
+                        backgroundColor: '#FFD1D1',
+                      },
+                    }}
+                    onClick={() => router.push('/login')}
+                  >
+                    LOGIN
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    fullWidth
+                    sx={{
+                      borderColor: '#ffffff',
+                      color: '#ffffff',
+                      '&:hover': {
+                        borderColor: '#FFD1D1',
+                        color: '#FFD1D1',
+                      },
+                    }}
+                    onClick={() => router.push('/signup')}
+                  >
+                    SIGN UP
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', stiffness: 60, delay: 0.4 }}
+            >
+              <Box sx={{ maxWidth: 600, margin: 'auto', borderRadius: '20px', overflow: 'hidden' }}>
+                <Spline
+                  scene="https://prod.spline.design/E92UC3yGkIMVjzNL/scene.splinecode"
+                  style={{ width: '100%', height: '600px', background: 'transparent' }}
+                />
+              </Box>
+            </motion.div>
+          </Grid>
+        </Grid>
+      </Box>
+    </ThemeProvider>
   );
 }
